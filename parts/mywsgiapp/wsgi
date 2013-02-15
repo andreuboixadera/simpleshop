@@ -1,0 +1,41 @@
+import ConfigParser
+import sys
+syspaths = [
+    '/home/andreu/Documents/PYTHON/Prova/simpleshop/src/simpleshop',
+    '/home/andreu/Documents/PYTHON/Prova/simpleshop/eggs/Paste-1.7.5.1-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Prova/simpleshop/eggs/setuptools-0.6c12dev_r88846-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/PasteDeploy-1.5.0-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/waitress-0.8.2-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/pyramid_debugtoolbar-1.0.4-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/pyramid-1.4-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Prova/simpleshop/eggs/Pygments-1.6-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/translationstring-1.1-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/venusian-1.0a7-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/zope.deprecation-4.0.2-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/zope.interface-4.0.3-py2.7-linux-i686.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/repoze.lru-0.6-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/WebOb-1.2.3-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/Mako-0.7.3-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/Chameleon-2.11-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Botiga/lib/python2.7/site-packages/MarkupSafe-0.15-py2.7.egg',
+    ]
+
+for path in reversed(syspaths):
+    if path not in sys.path:
+        sys.path[0:0]=[path]
+
+
+from paste.deploy import loadapp
+
+if sys.version_info >= (2, 6):
+    from logging.config import fileConfig
+else:
+    from paste.script.util.logging_config import fileConfig
+
+
+configfile = "/home/andreu/Documents/PYTHON/Prova/simpleshop/production.ini"
+try:
+    fileConfig(configfile)
+except ConfigParser.NoSectionError:
+    pass
+application = loadapp("config:" + configfile, name=None)

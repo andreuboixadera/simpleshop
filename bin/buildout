@@ -1,0 +1,13 @@
+#!/home/andreu/Documents/PYTHON/Botiga/bin/python
+
+import sys
+sys.path[0:0] = [
+    '/home/andreu/Documents/PYTHON/Prova/simpleshop/eggs/setuptools-0.6c12dev_r88846-py2.7.egg',
+    '/home/andreu/Documents/PYTHON/Prova/simpleshop/eggs/zc.buildout-1.7.0-py2.7.egg',
+    ]
+
+
+import zc.buildout.buildout
+
+if __name__ == '__main__':
+    sys.exit(zc.buildout.buildout.main())
