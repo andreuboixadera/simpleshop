@@ -55,7 +55,6 @@ def close_view(request):
 
 
 
-
 @view_config(context='pyramid.exceptions.NotFound', renderer='notfound.mako')	# Redireccio pagina no trobada
 def notfound_view(self):
     return {}
@@ -87,11 +86,28 @@ def buy_view(request):
 	
 	productes = Productes()
         claus = productes.getProducteKeys()
- 
-	tasks = {}
 
+	idcomanda = productes.carregaCommanda()
+ 
+
+	if request.method == 'POST':
+
+		for clau in claus:
+
+			nom=productes.getProducteNOM(str(clau)) 
+			preu=productes.getProductePREU(str(clau))
+			productes.guardarcomanda(idcomanda, clau, nom, request.POST[clau], preu)
+
+
+		productes.seguentcomanda(idcomanda)
+
+		request.session.flash('Comanda desada!')
+		return HTTPFound(location=request.route_url('buy'))
+
+
+
+	tasks = {}
 
     	tasks = [dict(id=row, nom=productes.getProducteNOM(str(row)), stock=productes.getProducteSTOCK(str(row)), preu=productes.getProductePREU(str(row)))  for row in claus]
 
-
-        return {'tasks': tasks}
+        return {'tasks': tasks, 'idcomanda':idcomanda}

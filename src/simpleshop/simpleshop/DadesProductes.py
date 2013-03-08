@@ -80,6 +80,24 @@ class Productes():
 
 
 
+	def carregaCommanda(self):
+
+                if (os.path.isfile(here+'/id-comanda.txt') is True):    
+                	f = open(here+'/id-comanda.txt', 'r')  
+                        print "id carregat"
+                        
+			
+			idComanda = f.readline()
+
+                        f.close()
+			return idComanda						 
+	
+                else:
+                        print "no carregat"
+                        #self.productes={ID:None} 	
+                	pass
+
+
 
 	def eliminarproducte(self, ideliminar):
 		if (os.path.isfile(here+'/productes.txt') is True):    
@@ -136,6 +154,26 @@ class Productes():
 
                         f.close()						 
 	
+                else:
+                        #self.productes={ID:None} 	
+                        pass
+
+
+	def seguentcomanda(self, idcomanda):
+
+                	f = open(here+'/id-comanda.txt', 'w')  
+			idcomanda = int(idcomanda)+1
+			f.write(str(idcomanda))
+                        f.close()
+
+
+        def guardarcomanda(self, idcomanda, idproducte, nomproducte, quantitatproducte, preuunitari):
+
+                if (os.path.isfile(here+'/comandes.txt') is True):    
+                        f = open(here+'/comandes.txt', 'a')  
+			f.write("Comanda="+idcomanda+"\tIdProducte="+idproducte+"\tNomProducte="+nomproducte+"\tQuantitatProducte="+quantitatproducte+"\tPreuProducte="+preuunitari+"\n") 
+                        f.close()						 
+
                 else:
                         #self.productes={ID:None} 	
                         pass

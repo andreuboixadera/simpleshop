@@ -21,6 +21,9 @@
   <li>No hi han productes</li>
 % endif
   <li class="last">
-    <a href="${request.route_url('new')}">Affegir producte</a>
-  </li>
+    <a href="${request.route_url('new')}">Affegir producte</a></li>
+  <br />
+  <li class="last">
+    <a href="${request.route_url('buy')}">Area client</a></li>
+  
 </ul>

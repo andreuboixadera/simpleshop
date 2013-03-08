@@ -1,3 +1,16 @@
-1	PacoCebolla	ProducteX	1	100
-2	FulanoTontoElano	ProducteX	1	100
-3	Jimmy	ProducteX	1	100
+Comanda=12	IdProducte=10	NomProducte=Suc Taronja	QuantitatProducte=1	PreuProducte=0.86
+Comanda=12	IdProducte=33	NomProducte=CocaCola Light	QuantitatProducte=0	PreuProducte=0.44
+Comanda=12	IdProducte=32	NomProducte=Fanta Pera	QuantitatProducte=0	PreuProducte=1.26
+Comanda=12	IdProducte=31	NomProducte=Pepsi Light	QuantitatProducte=0	PreuProducte=0.98
+Comanda=12	IdProducte=30	NomProducte=Pepsi	QuantitatProducte=4	PreuProducte=0.72
+Comanda=12	IdProducte=1	NomProducte=CocaCola	QuantitatProducte=0	PreuProducte=0.46
+Comanda=12	IdProducte=5	NomProducte=Fanta Taronja	QuantitatProducte=2	PreuProducte=0.62
+Comanda=12	IdProducte=6	NomProducte=Fanta Llimona	QuantitatProducte=0	PreuProducte=1.12
+Comanda=13	IdProducte=10	NomProducte=Suc Taronja	QuantitatProducte=0	PreuProducte=0.86
+Comanda=13	IdProducte=33	NomProducte=CocaCola Light	QuantitatProducte=20	PreuProducte=0.44
+Comanda=13	IdProducte=32	NomProducte=Fanta Pera	QuantitatProducte=1	PreuProducte=1.26
+Comanda=13	IdProducte=31	NomProducte=Pepsi Light	QuantitatProducte=1	PreuProducte=0.98
+Comanda=13	IdProducte=30	NomProducte=Pepsi	QuantitatProducte=5	PreuProducte=0.72
+Comanda=13	IdProducte=1	NomProducte=CocaCola	QuantitatProducte=0	PreuProducte=0.46
+Comanda=13	IdProducte=5	NomProducte=Fanta Taronja	QuantitatProducte=11	PreuProducte=0.62
+Comanda=13	IdProducte=6	NomProducte=Fanta Llimona	QuantitatProducte=0	PreuProducte=1.12

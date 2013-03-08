@@ -34,11 +34,12 @@ def main(global_config, **settings):
     # configuration setup
     config = Configurator(settings=settings, session_factory=session_factory)
     # routes setup
-    config.add_route('list', '/')
-    config.add_route('new', '/new')
-    config.add_route('close', '/close/{id}')
-    config.add_route('modify', '/modify/{id}')
-    config.add_route('buy', '/buy')
+    config.add_route('buy', '/')
+    config.add_route('list', '/admin')
+    config.add_route('new', '/admin/new')
+    config.add_route('close', '/admin/close/{id}')
+    config.add_route('modify', '/admin/modify/{id}')
+
     # static view setup
     config.add_static_view('static', os.path.join(here, 'static'))
     # scan for @view_config and @subscriber decorators
