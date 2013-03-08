@@ -5,4 +5,4 @@
 30	Pepsi	64	0.72
 33	CocaCola Light	4	0.44
 31	Pepsi Light	321	0.98
-32	Fanta Pera	23	1.26
+32	Pepsi Light	2	0.86

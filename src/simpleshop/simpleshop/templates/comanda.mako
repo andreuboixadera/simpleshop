@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 <%inherit file="layout.mako"/>
-<a href=/simpleshop/admin style="float:right">Administracio</a>
+<a href=/admin style="float:right">Administracio</a>
 <h1>Productes</h1>
 
 <ul id="tasks">

@@ -10,5 +10,5 @@
   <tr>Preu producte  <tr><input type="text" maxlength="10" name="preu"><br></br>
   <input type="submit" name="modificar" value="Modificar producte" class="button"><br>
 </table>
-  <br><li> <a href="/simpleshop/admin">Llista productes</a>
+  <br><li> <a href="/admin">Llista productes</a>
 </form>
