@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
-<%inherit file="layout.mako"/>
 
 <div id="notfound">
-  <h1>404 - PAGE NOT FOUND</h1>
-  The page you're looking for isn't here.
+  <h1>404 - PAGINA NO TROBADA! </h1>
+  <b>UPS!</b> Sembla que hi ha hagut algun tipus de problema...<br /><br />
+	<small>Assegurat de que haiguis entrat l'adreça correctament</small>
 </div>

@@ -7,18 +7,28 @@ class Productes():
         def __init__(self):      				
     					
                 self.longitud = 0
+		self.longitudComandes = 0
                 self.productes = {}
+                self.comandes = {}
                 self.carregararray()
-
+                self.carregaLlistaCommandes()
 
         def getProductes(self):  
 
                 return self.productes
 
-
         def getProducte(self, index):  
 
                 return self.productes[index]
+
+
+        def getComandes(self, index):  
+
+                return self.comandes
+
+        def getComanda(self, index):  
+
+                return self.comandes[index]
 
 
         def getProducteID(self, index):  
@@ -34,6 +44,18 @@ class Productes():
                 return self.productes[index]["preu"]
 
 
+
+        def getComandesFILA(self, index):  
+                return self.comandes[index]["fila"]
+
+
+
+
+        def getComandesKeys(self):  
+
+                return self.comandes.keys()
+
+
         def getProducteKeys(self):  
 
                 return self.productes.keys()
@@ -44,14 +66,16 @@ class Productes():
 
                 return self.longitud	# i+=1 incrementara despres de lassignacio
 
+	def getLongitudComandes(self):  
 
+		return self.longitudComandes
 
 
         def carregararray(self):
 
                 if (os.path.isfile(here+'/productes.txt') is True):    
                         f = open(here+'/productes.txt', 'r')  
-                        print "carregat"
+
                         i=0	
                         for line in f:
 
@@ -74,7 +98,7 @@ class Productes():
                         f.close()						 
 	
                 else:
-                        print "no carregat"
+                        #print "no carregat"
                         #self.productes={ID:None} 	
                         pass
 
@@ -84,7 +108,7 @@ class Productes():
 
                 if (os.path.isfile(here+'/id-comanda.txt') is True):    
                 	f = open(here+'/id-comanda.txt', 'r')  
-                        print "id carregat"
+                        #print "id carregat"
                         
 			
 			idComanda = f.readline()
@@ -93,7 +117,7 @@ class Productes():
 			return idComanda						 
 	
                 else:
-                        print "no carregat"
+                        #print "no carregat"
                         #self.productes={ID:None} 	
                 	pass
 
@@ -198,4 +222,48 @@ class Productes():
                         pass
 
 
+	def carregaLlistaCommandes(self):
+
+                if (os.path.isfile(here+'/comandes.txt') is True):    
+                	f = open(here+'/comandes.txt', 'r')  
+                        #print "comandes carregades"
+                        i=0	
+                        for line in f:
+
+                                comandes = {}			
+                                dades = line
+
+                                producte = {"fila":dades} 
+                                
+                                self.comandes[i] = producte
+                                self.longitudComandes=i
+				i+=1
+
+                        f.close()						 
+	
+                else:
+                        #print "comandes no carregat"
+                        #self.productes={ID:None} 	
+                        pass
+
+
+	def getLlistaComandes(self):
+		if (os.path.isfile(here+'/comandes.txt') is True):    
+                	f = open(here+'/comandes.txt', 'r')  
+                        #print "comandes carregades"
+                        i=0	
+
+			comandesTotal = ""
+
+                        for line in f:
+
+                                comandesTotal = comandesTotal + line + "\n" 			
+
+			return comandesTotal
+                        f.close()						 
+	
+                else:
+                        return "No hi han productes"
+                        #self.productes={ID:None} 	
+                        pass
 

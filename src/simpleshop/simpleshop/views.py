@@ -1,9 +1,27 @@
-from pyramid.view import view_config
-from DadesProductes import Productes
 from pyramid.httpexceptions import HTTPFound
 
+from pyramid.view import (
+    view_config,
+    forbidden_view_config,
+)
+from pyramid.security import (
+    remember,
+    forget,
+    authenticated_userid,
+)
+from .security import comprova_usuari
 
-@view_config(route_name='list', renderer='list.mako')			# Generar llista de productes
+from DadesProductes import Productes
+
+
+#INICI
+@view_config(route_name='benvingut', renderer='benvingut.mako', permission='view')
+def benvingut_view(request):
+    return { 'logged_in':authenticated_userid(request) }
+
+
+
+@view_config(route_name='list', renderer='list.mako', permission='administratius')		# Generar llista de productes admin
 def list_view(request):	
 							
         productes = Productes()
@@ -15,13 +33,32 @@ def list_view(request):
     	tasks = [dict(id=row, nom=productes.getProducteNOM(str(row)), stock=productes.getProducteSTOCK(str(row)), preu=productes.getProductePREU(str(row)))  for row in claus]
 
 
-        return {'tasks': tasks}
+        return {'tasks': tasks, 'page':"Llistat Administracio", 'logged_in':authenticated_userid(request)}
 
 
 
 
+@view_config(route_name='comandas', renderer='comandas.mako', permission='registrats')		
+def comandas_view(request):	
+							
+        productes = Productes()
 
-@view_config(route_name='new', renderer='new.mako')			# Affegir productes (mitjancant objecte Producte)
+	registre = productes.getLlistaComandes()
+
+
+
+
+	dades = registre.split("\n")
+
+	tasks =[dict(contingut=row) for row in dades]
+		
+
+	return {'tasks': tasks, 'page':"Llista Comandes", 'logged_in':authenticated_userid(request)}
+
+
+
+
+@view_config(route_name='new', renderer='new.mako', permission='administratius')			# Affegir productes (mitjancant objecte Producte)
 def new_view(request):
 	if request.method == 'POST':
 
@@ -31,18 +68,19 @@ def new_view(request):
 
 
 
-		request.session.flash('Producte affegit correctament!')
+		
 		return HTTPFound(location=request.route_url('list'))
         else:
-		request.session.flash('Entra les dades del producte')
+		pass
+		
 
-	return {}
-
-
-
+	return {'logged_in':authenticated_userid(request)}
 
 
-@view_config(route_name='close')					# Eliminar producte fitxer per ID
+
+
+
+@view_config(route_name='close', permission='administratius')					# Eliminar producte fitxer per ID
 def close_view(request):
 	
 	task_id = int(request.matchdict['id'])
@@ -50,19 +88,17 @@ def close_view(request):
 	productes = Productes()
         productes.eliminarproducte(task_id)
 
-	request.session.flash('Producte eliminat!')
 	return HTTPFound(location=request.route_url('list'))
 
 
 
-@view_config(context='pyramid.exceptions.NotFound', renderer='notfound.mako')	# Redireccio pagina no trobada
+@view_config(context='pyramid.exceptions.NotFound', renderer='notfound.mako')		# Redireccio pagina no trobada
 def notfound_view(self):
-    return {}
+	return {}
 
 
 
-
-@view_config(route_name='modify', renderer='modify.mako')		# Modificar producte per ID
+@view_config(route_name='modify', renderer='modify.mako', permission='administratius')		# Modificar producte per ID
 def modify_view(request):
 	
 	task_id = str(request.matchdict['id'])
@@ -71,17 +107,16 @@ def modify_view(request):
 		productes = Productes()
        		productes.modificaproducte(task_id, request.POST['nom'], request.POST['quantitat'], request.POST['preu'])
 
-		request.session.flash('Producte modificat!')
 		return HTTPFound(location=request.route_url('list'))
 
         else:
-		request.session.flash('Entra les dades del producte')
+		pass
 
-	return {}
+	return {'page' : "Modificar Producte", 'logged_in' : authenticated_userid(request)}
 
 
 
-@view_config(route_name='buy', renderer='comanda.mako')		# Realitzar comanda
+@view_config(route_name='buy', renderer='comanda.mako', permission='registrats' )				# Realitzar comanda
 def buy_view(request):
 	
 	productes = Productes()
@@ -101,7 +136,6 @@ def buy_view(request):
 
 		productes.seguentcomanda(idcomanda)
 
-		request.session.flash('Comanda desada!')
 		return HTTPFound(location=request.route_url('buy'))
 
 
@@ -110,4 +144,48 @@ def buy_view(request):
 
     	tasks = [dict(id=row, nom=productes.getProducteNOM(str(row)), stock=productes.getProducteSTOCK(str(row)), preu=productes.getProductePREU(str(row)))  for row in claus]
 
-        return {'tasks': tasks, 'idcomanda':idcomanda}
+        return {'tasks': tasks, 'idcomanda':idcomanda, 'logged_in':authenticated_userid(request)}
+
+@view_config(route_name='login', renderer='login.mako')
+
+@forbidden_view_config(renderer='login.mako')
+def login(request):
+    login_url = request.route_url('login')
+    # detectem des de quina URL ve el visitant
+    referrer = request.url
+    # retornem l'usuari a la home page si ha vingut directe al login
+    if referrer == login_url:
+        referrer = '/' # never use the login form itself as came_from
+    came_from = request.params.get('came_from', referrer)
+    user = authenticated_userid(request)
+    if user:
+        lloc = came_from.split("/")
+        message = "Ets %s, i com a tal no pots entrar a %s" % (user,lloc[len(lloc)-1])
+    else:
+        message = "Identifica't per entrar al sagrat mon d'Egipte"
+    login = ''
+    password = ''
+    if 'form.submitted' in request.params:
+        login = request.params['login']
+        password = request.params['password']
+        if comprova_usuari(login,password):
+            headers = remember(request, login)
+            return HTTPFound(location = came_from,
+                             headers = headers)
+        message = 'Failed login'
+
+    return dict(
+        message = message,
+        url = request.application_url + '/login',
+        came_from = came_from,
+        login = login,
+        password = password,
+        user = authenticated_userid(request), # afegim usuari autenticat si l'hi ha
+        )
+    
+
+@view_config(route_name='logout')
+def logout(request):
+    headers = forget(request)
+    return HTTPFound(location = request.route_url('benvingut'),
+                     headers = headers)

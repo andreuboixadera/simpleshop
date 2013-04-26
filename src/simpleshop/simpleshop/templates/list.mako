@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 <%inherit file="layout.mako"/>
-
+<a href="comandas"><span style="position:relative; float:right;">Comandes&nbsp&nbsp&nbsp</span></a>
 <h1>Productes</h1>
 
 <ul id="tasks">

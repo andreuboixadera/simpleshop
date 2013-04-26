@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*- 
 <%inherit file="layout.mako"/>
-<a href=/admin style="float:right">Administracio</a>
+
+<a href=/admin style="float:right; margin-rigth:0;">Administracio</a>
+<a href="comandas"><span style="position:relative; float:right;">Comandes&nbsp&nbsp&nbsp</span></a>
+
 <h1>Productes</h1>
 
 <ul id="tasks">
@@ -15,7 +18,8 @@
     <br><br> Quantitat a comprar: <input type="text" name="${task['id']}" value="0" maxlength="4" size="3" > 
   </li><hr />
   % endfor
-  <br><input type="submit" name="add" value="Realitzar commanda" class="button"><br>
+  <br /><input type="submit" name="add" value="Realitzar commanda" class="button"><br>
+
  </form>
 % else:
   <li>No hi han productes</li>

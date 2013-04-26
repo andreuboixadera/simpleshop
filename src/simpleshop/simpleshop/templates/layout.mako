@@ -9,18 +9,14 @@
   <link rel="shortcut icon" href="/static/favicon.ico">
   <link rel="stylesheet" href="/static/style.css">
 
+	<a href="logout"><span style="position:relative; float:right; margin-right: 5%;">&nbsp&nbsp&nbspSortir</span></a>
+
 </head>
 
 <body>
 
-  % if request.session.peek_flash():
-  <div id="flash">
-    <% flash = request.session.pop_flash() %>
-	% for message in flash:
-	${message}<br>
-	% endfor
-  </div>
-  % endif
+
+
 
   <div id="page">
     

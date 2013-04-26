@@ -12,6 +12,7 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: #1b61d6;
   text-decoration: none;
+  font-weight: bold;
 }
 
 input {
@@ -24,9 +25,9 @@ input {
   font-size: 14px;
   font-weight: bold;
   width: auto;
-  background: #eeeeee;
+  background: rgb(138,138,138)
   padding: 5px 20px 5px 20px;
-  border: 1px solid #bbbbbb;
+  border: 5px solid #bbbbbb;
   border-left: none;
   border-right: none;
 }
